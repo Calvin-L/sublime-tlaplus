@@ -5,7 +5,7 @@
   <key>name</key>
   <string>Symbol List</string>
   <key>scope</key>
-  <string>source.tla entity.name</string>
+  <string>source.tlaplus entity.name</string>
   <key>settings</key>
   <dict>
     <key>showInSymbolList</key>
