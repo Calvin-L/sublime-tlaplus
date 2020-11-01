@@ -2,71 +2,71 @@
 ---
 name: TLA+
 file_extensions: [tla]
-scope: source.tla
+scope: source.tlaplus
 
 contexts:
   main:
     - match: \b(MODULE|EXTENDS|INSTANCE|WITH|VARIABLES?|CONSTANTS?|IF|THEN|ELSE|CASE|OTHER|LET|IN|ASSUME|THEOREM|LOCAL)\b
-      scope: keyword.control.tla
+      scope: keyword.control.tlaplus
     - match: \\\*.*\n
-      scope: comment.line.tla
+      scope: comment.line.tlaplus
     - match: \-{4,}|\={4,}
-      scope: comment.separator.tla
+      scope: comment.separator.tlaplus
     - match: ([_a-zA-Z]\w*)\s*(\(\)|\([^\*][^)]*\))?\s*(==)
       captures:
-        1: entity.name.operator.tla
-        3: keyword.operator.tla
+        1: entity.name.operator.tlaplus
+        3: keyword.operator.tlaplus
     - include: expressions
 
   expressions:
     - match: '"([^\\"]|\\.)*"'
-      scope: string.quoted.double.tla
+      scope: string.quoted.double.tlaplus
     - match: \b\d+\b
-      scope: constant.numeric.tla
+      scope: constant.numeric.tlaplus
     - match: \b(TRUE|FALSE)\b
-      scope: constant.language.tla
+      scope: constant.language.tlaplus
     - match: \b(UNION|DOMAIN|SUBSET|EXCEPT|UNCHANGED|ENABLED|CHOOSE)\b
-      scope: keyword.operator.tla
+      scope: keyword.operator.tlaplus
     - match: \b(WF|SF)_
-      scope: keyword.operator.tla
+      scope: keyword.operator.tlaplus
     - match: \b([a-zA-Z][\w!]*)\s*\((?=[^\*])
       captures:
-        1: variable.function.tla
+        1: variable.function.tlaplus
     - match: (\\A|\\E|\\AA|\\EE)\s+(\w+)
       captures:
-        1: keyword.operator.tla
-        2: variable.parameter.tla
+        1: keyword.operator.tlaplus
+        2: variable.parameter.tlaplus
     - match: \\\w+\b
-      scope: keyword.operator.tla
+      scope: keyword.operator.tlaplus
     - match: '\+|\-|@@|:>|\|->|<-|=>|<=|>|<|>=|=|/=|~|#|\\/|/\\|\\|:|<>|\[\]'
-      scope: keyword.operator.tla
+      scope: keyword.operator.tlaplus
     - match: \(\*
       push: block-comment
 
   pluscal:
-    - clear_scopes: 1 # clears the top scope (should be "comment.block.tla")
+    - clear_scopes: 1 # clears the top scope (should be "comment.block.tlaplus")
     - match: \{
       push: pluscal
     - match: \}
       pop: true
     - match: \b(begin|do)\b
-      scope: keyword.control.tla
+      scope: keyword.control.tlaplus
       push: pluscal
     - match: \b(end)\s+\w+\b
       pop: true
-      scope: keyword.control.tla
+      scope: keyword.control.tlaplus
     - match: \\\*.*\n
-      scope: comment.line.tla
+      scope: comment.line.tlaplus
     - match: \b(await|with|while|if|else|either|or|process|variables?|skip|assert|print|return|call|goto|define)\b
-      scope: keyword.control.tla
+      scope: keyword.control.tlaplus
     - match: \b(macro|procedure)\s+(\w+)\b
       captures:
-        1: keyword.control.tla
-        2: entity.name.pcaldefinition.tla
+        1: keyword.control.tlaplus
+        2: entity.name.pcaldefinition.tlaplus
     - include: expressions
 
   # Separating "block-comment-core" and "block-comment" ensures that we only
-  # push "comment.block.tla" onto the scope stack once.
+  # push "comment.block.tlaplus" onto the scope stack once.
   block-comment-core:
     - match: \*\)
       pop: true
@@ -74,10 +74,10 @@ contexts:
       push: block-comment-core
     - match: (--algorithm)\s+\w+\b(\s*\{)?
       push: pluscal
-      scope: source.tla # not sure why, but this fixes some issues...
+      scope: source.tlaplus # not sure why, but this fixes some issues...
       captures:
-        1: keyword.control.tla
+        1: keyword.control.tlaplus
 
   block-comment:
-    - meta_scope: comment.block.tla
+    - meta_scope: comment.block.tlaplus
     - include: block-comment-core
