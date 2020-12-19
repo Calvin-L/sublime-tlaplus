@@ -1,1 +1,2 @@
+.gitattributes       export-ignore
 /syntax_test_tla.tla export-ignore
