@@ -49,7 +49,7 @@ contexts:
       push: pluscal
     - match: \}
       pop: true
-    - match: \b(begin|do)\b
+    - match: \b(begin|do|then)\b
       scope: keyword.control.tlaplus
       push: pluscal
     - match: \b(end)\s+\w+\b
