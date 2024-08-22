@@ -6,7 +6,7 @@ scope: source.tlaplus
 
 contexts:
   main:
-    - match: \b(MODULE|EXTENDS|INSTANCE|WITH|VARIABLES?|CONSTANTS?|IF|THEN|ELSE|CASE|OTHER|LET|IN|ASSUME|THEOREM|LOCAL)\b
+    - match: \b(MODULE|EXTENDS|INSTANCE|WITH|VARIABLES?|CONSTANTS?|IF|THEN|ELSE|CASE|OTHER|LET|IN|ASSUME|LEMMA|THEOREM|LOCAL)\b
       scope: keyword.control.tlaplus
     - match: \\\*.*\n
       scope: comment.line.tlaplus
