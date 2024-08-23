@@ -211,7 +211,12 @@ class Worker(object):
             elif status == "failed":
                 region = sublime.Region(start, end)
                 bad_ranges.append(region)
-                obligation_html = info["obl"].replace("\n", "<br>")
+                obligation_html = (info["obl"]
+                    .replace("&", "&amp;")
+                    .replace(" ", "&nbsp;")
+                    .replace("<", "&lt;")
+                    .replace(">", "&gt;")
+                    .replace("\n", "<br>"))
                 phantoms.append(sublime.Phantom(region=region, content=f"<body><style>body {{ background-color: color(red alpha(0.25)); padding: 0.5em; }}</style>{obligation_html}</body>", layout=sublime.PhantomLayout.BELOW))
 
         for info in infos:
