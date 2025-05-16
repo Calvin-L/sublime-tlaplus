@@ -5,13 +5,24 @@ file_extensions: [tla]
 scope: source.tlaplus
 
 contexts:
+
   main:
+    - match: \-{4,}
+      scope: comment.separator.tlaplus
+      push: in_module
+    - match: .
+      scope: comment.outside_of_module.tlaplus
+
+  in_module:
     - match: \b(MODULE|EXTENDS|INSTANCE|WITH|VARIABLES?|CONSTANTS?|IF|THEN|ELSE|CASE|OTHER|LET|IN|ASSUME|LEMMA|THEOREM|LOCAL)\b
       scope: keyword.control.tlaplus
     - match: \\\*.*\n
       scope: comment.line.tlaplus
-    - match: \-{4,}|\={4,}
+    - match: \-{4,}
       scope: comment.separator.tlaplus
+    - match: \={4,}
+      scope: comment.separator.tlaplus
+      pop: true
     - match: ([_a-zA-Z]\w*)\s*(\(\)|\([^\*][^)]*\))?\s*(==)
       captures:
         1: entity.name.operator.tlaplus
