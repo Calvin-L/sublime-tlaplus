@@ -1,4 +1,9 @@
-\* SYNTAX TEST "tla.sublime-syntax"
+\* SYNTAX TEST "tlaplus.sublime-syntax"
+
+Hello!
+\* <- comment
+
+---- MODULE syntax_test_tla ----
 
 Foo() == 1
 \* <- entity.name.operator
@@ -39,7 +44,7 @@ Let's do some pluscal!
 
     process (P \in 1 .. 2)
     \* ^^^^ keyword
-    \* ^^^^ source.tla
+    \* ^^^^ source.tlaplus
     {
         \* TODO: something?
         \* ^^^^ - comment.block
@@ -100,3 +105,5 @@ Foo == 10
 
     _UnderscoredID == FALSE
 \*  ^^^^^^^^^^^^^^ <- entity.name.operator
+
+====
