@@ -54,6 +54,18 @@ contexts:
     - match: \(\*
       push: block-comment
 
+  pre_pluscal:
+    - clear_scopes: 1 # clears the top scope (should be "comment.block.tlaplus")
+    - match: \\\*.*\n
+      scope: comment.line.tlaplus
+    - match: \{
+      pop: true
+      push: pluscal
+    - match: \b(variables?|define|process|begin)\b
+      pop: true
+      push: pluscal
+      scope: keyword.control.tlaplus
+
   pluscal:
     - clear_scopes: 1 # clears the top scope (should be "comment.block.tlaplus")
     - match: \{
@@ -83,8 +95,8 @@ contexts:
       pop: true
     - match: \(\*
       push: block-comment-core
-    - match: (--algorithm)\s+\w+\b(\s*\{)?
-      push: pluscal
+    - match: (--algorithm)\s+\w+\b
+      push: pre_pluscal
       scope: source.tlaplus # not sure why, but this fixes some issues...
       captures:
         1: keyword.control.tlaplus

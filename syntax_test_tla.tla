@@ -104,6 +104,6 @@ Foo == 10
 \* <- entity.name.operator
 
     _UnderscoredID == FALSE
-\*  ^^^^^^^^^^^^^^ <- entity.name.operator
+    \* <- entity.name.operator
 
 ====
