@@ -78,6 +78,13 @@ open another comment scope "just in case"
     variable object = InitObj
       \* <- keyword
 
+    define
+    \* <- keyword
+        TypeOK == TRUE
+        \* <- entity.name.operator
+                   \* <- constant
+    end define;
+
     process Proc \in Procs
         variables com, b;
         begin

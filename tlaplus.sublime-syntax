@@ -75,18 +75,38 @@ contexts:
     - match: \b(begin|do|then)\b
       scope: keyword.control.tlaplus
       push: pluscal
-    - match: \b(end)\s+\w+\b
-      pop: true
+    - match: \b(define)\b
       scope: keyword.control.tlaplus
+      push: in_define_block
     - match: \\\*.*\n
       scope: comment.line.tlaplus
-    - match: \b(await|with|while|if|else|either|or|process|variables?|skip|assert|print|return|call|goto|define)\b
+    - match: \b(await|with|while|if|else|either|or|process|variables?|skip|assert|print|return|call|goto)\b
       scope: keyword.control.tlaplus
     - match: \b(macro|procedure)\s+(\w+)\b
       captures:
         1: keyword.control.tlaplus
         2: entity.name.pcaldefinition.tlaplus
     - include: expressions
+    - include: terminated_by_end_keyword
+
+  in_define_block:
+    - match: \b(MODULE|EXTENDS|INSTANCE|WITH|VARIABLES?|CONSTANTS?|IF|THEN|ELSE|CASE|OTHER|LET|IN|ASSUME|LEMMA|THEOREM|LOCAL)\b
+      scope: keyword.control.tlaplus
+    - match: \\\*.*\n
+      scope: comment.line.tlaplus
+    - match: \-{4,}
+      scope: comment.separator.tlaplus
+    - match: ([_a-zA-Z]\w*)\s*(\(\)|\([^\*][^)]*\))?\s*(==)
+      captures:
+        1: entity.name.operator.tlaplus
+        3: keyword.operator.tlaplus
+    - include: expressions
+    - include: terminated_by_end_keyword
+
+  terminated_by_end_keyword:
+    - match: \b(end)\s+\w+\b
+      pop: true
+      scope: keyword.control.tlaplus
 
   # Separating "block-comment-core" and "block-comment" ensures that we only
   # push "comment.block.tlaplus" onto the scope stack once.
