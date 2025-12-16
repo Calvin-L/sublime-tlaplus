@@ -51,9 +51,9 @@ class Worker(object):
     def __init__(self):
         self._lock = threading.Lock()
         self._proc = None
+        self._phantom_set_by_view = {}
         self._thread = threading.Thread(target=self._bg_job)
         self._thread.start()
-        self._phantom_set_by_view = {}
 
     # Interaction with background thread
 
